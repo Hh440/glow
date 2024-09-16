@@ -11,7 +11,7 @@ renderer.setSize(w, h);
 document.body.appendChild(renderer.domElement);
 
 const camera = new THREE.PerspectiveCamera(75, w / h, 0.01, 1000);
-camera.position.z = 25;
+camera.position.z = 10;
 
 const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0x000000, 0.035);
