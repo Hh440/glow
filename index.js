@@ -1,4 +1,3 @@
-
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.module.js';
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.152.0/examples/jsm/controls/OrbitControls.js';
 import { EffectComposer } from 'https://cdn.jsdelivr.net/npm/three@0.152.0/examples/jsm/postprocessing/EffectComposer.js';
@@ -20,11 +19,14 @@ scene.fog = new THREE.FogExp2(0x000000, 0.035);
 const renderScene = new RenderPass(scene, camera);
 const bloomPass = new UnrealBloomPass(new THREE.Vector2(w, h), 1.5, 0.4, 100);
 bloomPass.threshold = 0;
-bloomPass.strength = 4.5;
+bloomPass.strength = 15.5;
 bloomPass.radius = 0;
 const composer = new EffectComposer(renderer);
 composer.addPass(renderScene);
 composer.addPass(bloomPass);
+
+const light = new THREE.PointLight(0xff06500, 1, 100);
+light.position.set(50, 50, 50);
 
 function getRandomSpherePoint({ radius }) {
     const minRadius = radius * 0.25;
@@ -42,11 +44,15 @@ function getRandomSpherePoint({ radius }) {
 }
 
 const geo = new THREE.BoxGeometry(1, 1, 1);
-const mat = new THREE.MeshBasicMaterial({ color: 0x0764f });
+const mat = new THREE.MeshBasicMaterial({
+    color: 0x0764f,
+    blending: THREE.AdditiveBlending,  // Use additive blending to create a glow effect
+    transparent: true,
+    opacity: 0.7,
+    emissive: 0x0764f,  // Set emissive color for glow effect
+    emissiveIntensity: 2, // Increase intensity to make the glow stronger
+});
 const edges = new THREE.EdgesGeometry(geo);
-
-const hemilight = new THREE.HemisphereLight(0xffffff, 0x44444444);
-scene.add(hemilight);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
