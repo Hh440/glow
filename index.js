@@ -1,3 +1,4 @@
+
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.module.js';
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.152.0/examples/jsm/controls/OrbitControls.js';
 import { EffectComposer } from 'https://cdn.jsdelivr.net/npm/three@0.152.0/examples/jsm/postprocessing/EffectComposer.js';
@@ -11,7 +12,7 @@ renderer.setSize(w, h);
 document.body.appendChild(renderer.domElement);
 
 const camera = new THREE.PerspectiveCamera(75, w / h, 0.01, 1000);
-camera.position.z = 10;
+camera.position.z = 50;
 
 const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0x000000, 0.035);
